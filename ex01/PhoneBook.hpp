@@ -13,11 +13,12 @@ private:
 	std::string prompt[5];
 	bool	is_all_spaces(const std::string& str);
 	bool	is_valid_phone_number(const std::string &str);
-	void	show_added_contact(void);
+	void	show_saved_contact(void);
+	void	show_contacts(int index);
 public:
 	PhoneBook(void);
 	void	add_contact(void);
-	void	search(void);
+	void	search_contact(void);
 	
 
 };
