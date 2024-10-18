@@ -69,7 +69,7 @@ void PhoneBook::add_contact(void)
             return;
         }
 		if (input.empty() || is_all_spaces(input))
-		std::cout<<"No empty fields allowed!"<< std::endl;
+			std::cout<<"No empty fields allowed!"<< std::endl;
 		if (i == 3 && (input.empty() || !is_valid_phone_number(input)))
 		{
 			std::cout<<"Invalid phone number! Usage: digits, '+', '-'"<<std::endl;
@@ -84,7 +84,15 @@ void PhoneBook::add_contact(void)
 	show_saved_contact();
 	index++;
 }
-
+// Display the saved contacts as a list of 4 columns: index, first name, last
+// name and nickname.
+// ◦ Each column must be 10 characters wide. A pipe character (’|’) separates
+// them. The text must be right-aligned. If the text is longer than the column,
+// it must be truncated and the last displayable character must be replaced by a
+// dot (’.’).
+// ◦ Then, prompt the user again for the index of the entry to display. If the index
+// is out of range or wrong, define a relevant behavior. Otherwise, display the
+// contact information, one field per line.
 void PhoneBook::show_contacts(int index)
 {
 	std::cout<<std::setw(10)<<index + 1<<"|";
@@ -97,6 +105,34 @@ void PhoneBook::show_contacts(int index)
 	}
 }
 
+void PhoneBook::show_index_contact(void)
+{
+	std::string index;
+	int number = 0;
+	while (1)
+	{
+		std::cout<<"Input index of the contact: ";
+		if (!std::getline(std::cin, index))
+			{
+				std::cout<<std::endl;
+				return ;
+			}
+		if (index.length() == 1 && index[0] >= '1' && index[0] <= '8')
+			break ;
+		else
+			std::cout << "NO such index (min index = 1, max = 8)!" << std::endl;
+	}
+		number = index[0] - '0';
+		if (contacts[number - 1].get_contact_data(0).empty())
+		{
+			std::cout << "No contact saved at this index." << std::endl;
+			return ;
+		}
+		for (int i = 0; i < 5; i++)
+		std::cout << prompt[i].substr(6)<<contacts[number - 1].get_contact_data(i) << std::endl;
+		std::cout << "--------------------------------------------" << std::endl;
+}
+
 void PhoneBook::search_contact(void)
 {
 	std::cout<<"Contacts:"<<std::endl;
@@ -106,5 +142,6 @@ void PhoneBook::search_contact(void)
 		show_contacts(i);
 		i++;
 	}
-	// std::cout<<"Choose a contact"<<std::endl;
+	std::cout<<"Choose a contact"<<std::endl;
+	show_index_contact();
 }

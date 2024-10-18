@@ -2,9 +2,17 @@
 
 int main()
 {
+    // int number = 0;
+    // while (1)
+    // {
+    //   std::cout<<"input number: ";
+    //   std::cin>>number;
+    //   std::cout<<number;      
+    // }
+
 	PhoneBook phoneBook;
 	std::string input;
-	 while (1)
+	while (1)
 	{
         std::cout<<"Enter command: ";
         if (!std::getline(std::cin, input))

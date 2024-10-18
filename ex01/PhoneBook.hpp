@@ -15,6 +15,7 @@ private:
 	bool	is_valid_phone_number(const std::string &str);
 	void	show_saved_contact(void);
 	void	show_contacts(int index);
+	void	show_index_contact(void);
 public:
 	PhoneBook(void);
 	void	add_contact(void);
