@@ -3,7 +3,7 @@ NAME = account
 CC = c++
 FLAGS = -Werror -Wextra -Wall
 
-SRC = tests.cpp
+SRC = tests.cpp Account.cpp
 
 all : $(NAME)
 

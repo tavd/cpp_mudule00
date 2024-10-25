@@ -84,6 +84,7 @@ void PhoneBook::add_contact(void)
 	show_saved_contact();
 	index++;
 }
+
 // Display the saved contacts as a list of 4 columns: index, first name, last
 // name and nickname.
 // ◦ Each column must be 10 characters wide. A pipe character (’|’) separates
@@ -101,7 +102,7 @@ void PhoneBook::show_contacts(int index)
 		std::string contact_data = contacts[index].get_contact_data(i);
 		if (contact_data.length() > 10)
 		contact_data = contact_data.substr(0, 9) + ".";
-		std::cout<<std::setw(10)<<std::right<<contact_data<<"|";
+		std::cout<<std::setw(10)<<contact_data<<"|";//std::right by default
 	}
 }
 
