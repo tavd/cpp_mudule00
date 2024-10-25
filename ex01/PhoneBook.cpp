@@ -34,7 +34,7 @@ bool PhoneBook::is_valid_phone_number(const std::string &str)
 
 void PhoneBook::show_saved_contact(void)
 {
-	std::cout<<std::endl<<"Contact successfully saved!"<< std::endl<<std::endl;
+	std::cout<<std::endl<<"Contact successfully saved!"<<std::endl<<std::endl;
 	for (int i = 0; i < 5; i++)
 	{
 		std::cout<<prompt[i].substr(6)<<contacts[index].get_contact_data(i)<<std::endl;
@@ -68,7 +68,7 @@ void PhoneBook::add_contact(void)
             std::cout<<"\nInput interrupted. Contact not fully added."<<std::endl;
             return;
         }
-		if (input.empty() || is_all_spaces(input))
+		if (input.empty() || is_all_spaces(input))//todo
 			std::cout<<"No empty fields allowed!"<< std::endl;
 		if (i == 3 && (input.empty() || !is_valid_phone_number(input)))
 		{
@@ -104,6 +104,7 @@ void PhoneBook::show_contacts(int index)
 		contact_data = contact_data.substr(0, 9) + ".";
 		std::cout<<std::setw(10)<<contact_data<<"|";//std::right by default
 	}
+	std::cout << std::endl;
 }
 
 void PhoneBook::show_index_contact(void)
@@ -143,6 +144,6 @@ void PhoneBook::search_contact(void)
 		show_contacts(i);
 		i++;
 	}
-	std::cout<<"Choose a contact"<<std::endl;
+	std::cout<<std::endl<<"Choose a contact to search"<<std::endl;
 	show_index_contact();
 }
