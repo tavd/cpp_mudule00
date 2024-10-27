@@ -37,7 +37,7 @@ void PhoneBook::show_saved_contact(void)
 	std::cout<<std::endl<<"Contact successfully saved!"<<std::endl<<std::endl;
 	for (int i = 0; i < 5; i++)
 	{
-		std::cout<<prompt[i].substr(6)<<contacts[index].get_contact_data(i)<<std::endl;
+		std::cout<<prompt[i].substr(6)<<contacts[index].get_data(i)<<std::endl;
 	}//substr(6) will skip first 6 chars of a string: "Enter first name:", the result: "first name:"
 }
 
@@ -54,7 +54,7 @@ void PhoneBook::add_contact(void)
             std::cout<<"\nInput interrupted. Contact not fully added."<<std::endl;
             return;
         }
-		if (input.empty() || input[0] != 'y')
+		if (input[0] != 'y')//input.empty() || 
 			return ;
 		index = 0;
 	}
@@ -77,7 +77,7 @@ void PhoneBook::add_contact(void)
 		}
 		else
 		{
-		contacts[index].fill_contact_data(i, input);
+		contacts[index].fill_data(i, input);
 		i++;
 		}
 	}
@@ -99,7 +99,7 @@ void PhoneBook::show_contacts(int index)
 	std::cout<<std::setw(10)<<index + 1<<"|";
 	for (int i = 0; i < 3; i++)//first name, last name, nickname
 	{
-		std::string contact_data = contacts[index].get_contact_data(i);
+		std::string contact_data = contacts[index].get_data(i);
 		if (contact_data.length() > 10)
 		contact_data = contact_data.substr(0, 9) + ".";
 		std::cout<<std::setw(10)<<contact_data<<"|";//std::right by default
@@ -125,13 +125,13 @@ void PhoneBook::show_index_contact(void)
 			std::cout << "NO such index (min index = 1, max = 8)!" << std::endl;
 	}
 		number = index[0] - '0';
-		if (contacts[number - 1].get_contact_data(0).empty())
+		if (contacts[number - 1].get_data(0).empty())
 		{
 			std::cout << "No contact saved at this index." << std::endl;
 			return ;
 		}
 		for (int i = 0; i < 5; i++)
-		std::cout << prompt[i].substr(6)<<contacts[number - 1].get_contact_data(i) << std::endl;
+		std::cout << prompt[i].substr(6)<<contacts[number - 1].get_data(i) << std::endl;
 		std::cout << "--------------------------------------------" << std::endl;
 }
 
