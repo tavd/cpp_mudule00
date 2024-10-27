@@ -51,7 +51,7 @@ void PhoneBook::add_contact(void)
 		std::string input;
 		if (!std::getline(std::cin, input))
     	{
-            std::cout<<"\nInput interrupted. Contact not fully added."<<std::endl;
+            std::cout<<"\nInput interrupted. Contact is not added."<<std::endl;
             return;
         }
 		if (input[0] != 'y')//input.empty() || 
