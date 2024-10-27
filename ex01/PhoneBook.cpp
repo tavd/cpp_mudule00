@@ -43,7 +43,7 @@ void PhoneBook::show_saved_contact(void)
 
 void PhoneBook::add_contact(void)
 {
-	std::cout<<"index="<<index<<std::endl;
+	std::cout<<"index="<<index<<std::endl;//todo remove
 	if (index == 2)//todo
 	{
 		std::cout<<"Phone book is full! Adding new contact will overite the oldest one"<<std::endl;
@@ -104,7 +104,7 @@ void PhoneBook::show_contacts(int index)
 		contact_data = contact_data.substr(0, 9) + ".";
 		std::cout<<std::setw(10)<<contact_data<<"|";//std::right by default
 	}
-	std::cout << std::endl;
+	std::cout<<std::endl;
 }
 
 void PhoneBook::show_index_contact(void)
@@ -122,12 +122,12 @@ void PhoneBook::show_index_contact(void)
 		if (index.length() == 1 && index[0] >= '1' && index[0] <= '8')
 			break ;
 		else
-			std::cout << "NO such index (min index = 1, max = 8)!" << std::endl;
+			std::cout<<"NO such index (min index = 1, max = 8)!" << std::endl;
 	}
 		number = index[0] - '0';
 		if (contacts[number - 1].get_data(0).empty())
 		{
-			std::cout << "No contact saved at this index." << std::endl;
+			std::cout<<"No contact saved at this index." << std::endl;
 			return ;
 		}
 		for (int i = 0; i < 5; i++)
@@ -137,6 +137,7 @@ void PhoneBook::show_index_contact(void)
 
 void PhoneBook::search_contact(void)
 {
+	std::cout<<std::endl<<"Choose a contact to search"<<std::endl;
 	std::cout<<"Contacts:"<<std::endl;
 	int i = 0;
 	while (i < 8)
@@ -144,6 +145,5 @@ void PhoneBook::search_contact(void)
 		show_contacts(i);
 		i++;
 	}
-	std::cout<<std::endl<<"Choose a contact to search"<<std::endl;
 	show_index_contact();
 }

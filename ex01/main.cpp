@@ -14,7 +14,7 @@ int main()
 	std::string input;
 	while (1)
 	{
-        std::cout<<"Enter command: ";
+        std::cout<<std::endl<<"Enter command: ";
         if (!std::getline(std::cin, input))
         {
             std::cout<<std::endl;
@@ -27,6 +27,6 @@ int main()
 		else if (input == "SEARCH" || input == "search")
 			phoneBook.search_contact();
         else
-            std::cout<<"Invalid command! Enter a valid one!"<< std::endl;
+            std::cout<<"Invalid command! Enter a valid one!"<<std::endl;
     }
 }
