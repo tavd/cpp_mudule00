@@ -14,7 +14,7 @@ PhoneBook::PhoneBook(void) : index(0), prompt{"Enter first name: ", "Enter last 
 
 bool PhoneBook::is_all_spaces(const std::string &str)
 {
-    for (std::string::size_type i = 0; i < str.length(); i++)
+    for (std::string::size_type i = 0; i < str.length(); i++)//todo,str[i]!='/0'?
     {
         if (!std::isspace(str[i]))
             return false;
@@ -24,7 +24,7 @@ bool PhoneBook::is_all_spaces(const std::string &str)
 
 bool PhoneBook::is_valid_phone_number(const std::string &str)
 {
-	for (std::string::size_type i = 0; i < str.length(); i++)
+	for (std::string::size_type i = 0; i < str.length(); i++)//todo,str.length(),size_type
 	{
 		if (!std::isdigit(str[i]) && str[i] != '+' && str[i] != '-')
 		return false;
@@ -45,8 +45,8 @@ void PhoneBook::add_contact(void)
 {
 	std::cout<<"index="<<index<<std::endl;//todo remove
 	if (index == 2)//todo
-	{
-		std::cout<<"Phone book is full! Adding new contact will overite the oldest one"<<std::endl;
+	{//fu
+		std::cout<<"Phone book is full! Adding new contact will overwrite the oldest one"<<std::endl;
 		std::cout<<"Continue? (y/n):";
 		std::string input;
 		if (!std::getline(std::cin, input))
@@ -54,7 +54,7 @@ void PhoneBook::add_contact(void)
             std::cout<<"\nInput interrupted. Contact is not added."<<std::endl;
             return;
         }
-		if (input[0] != 'y')//input.empty() || 
+		if (input.empty() || input[0] != 'y')
 			return ;
 		index = 0;
 	}
@@ -68,11 +68,11 @@ void PhoneBook::add_contact(void)
             std::cout<<"\nInput interrupted. Contact not fully added."<<std::endl;
             return;
         }
-		if (input.empty() || is_all_spaces(input))//todo
+		if (is_all_spaces(input))//todo,input.empty() ||
 			std::cout<<"No empty fields allowed!"<< std::endl;
 		if (i == 3 && (input.empty() || !is_valid_phone_number(input)))
 		{
-			std::cout<<"Invalid phone number! Usage: digits, '+', '-'"<<std::endl;
+			std::cout<<"Invalid phone number! Usage: digits, '+', '-'"<<std::endl;//todo
 			continue;
 		}
 		else
@@ -107,7 +107,7 @@ void PhoneBook::show_contacts(int index)
 	std::cout<<std::endl;
 }
 
-void PhoneBook::show_index_contact(void)
+void PhoneBook::show_index_contact(void)//todo,show_contact_y_index
 {
 	std::string index;
 	int number = 0;
