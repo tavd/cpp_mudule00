@@ -3,7 +3,7 @@
 Contact::Contact(void)
 {}
 
-void Contact::fill_data(int index, std::string input)
+void Contact::set_data(int index, std::string input)
 {
 	data[index] = input;
 }

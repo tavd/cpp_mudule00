@@ -77,7 +77,7 @@ void PhoneBook::add_contact(void)
 		}
 		else
 		{
-		contacts[index].fill_data(i, input);
+		contacts[index].set_data(i, input);
 		i++;
 		}
 	}

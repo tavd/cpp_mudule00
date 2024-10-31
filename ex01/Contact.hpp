@@ -8,7 +8,7 @@ class Contact {
 		std::string data[5];
 	public:
 		Contact(void);
-		void fill_data(int index, std::string input);
+		void set_data(int index, std::string input);
 		std::string get_data(int index);
 };
 #endif
