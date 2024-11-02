@@ -14,7 +14,7 @@ PhoneBook::PhoneBook(void) : index(0), prompt{"Enter first name: ", "Enter last 
 
 bool PhoneBook::is_all_spaces(const std::string &str)
 {
-    for (std::string::size_type i = 0; i < str.length(); i++)//todo,str[i]!='/0'?
+    for (std::string::size_type i = 0; i < str.length(); i++)
     {
         if (!std::isspace(str[i]))
             return false;
@@ -24,65 +24,83 @@ bool PhoneBook::is_all_spaces(const std::string &str)
 
 bool PhoneBook::is_valid_phone_number(const std::string &str)
 {
-	for (std::string::size_type i = 0; i < str.length(); i++)//todo,str.length(),size_type
-	{
-		if (!std::isdigit(str[i]) && str[i] != '+' && str[i] != '-')
-		return false;
-	}
-	return true;
+    bool has_digit = false;
+    for (std::string::size_type i = 0; i < str.length(); i++)
+    {
+        if (std::isdigit(str[i]))
+            has_digit = true;
+        else if (str[i] == '+')
+        {
+            if (i != 0)
+            return false;
+        }
+        else if (str[i] == '-')
+        {
+            if (i == 0 || i == str.length() - 1 || str[i - 1] == '-')
+                return false;
+        }
+        else
+            return false;
+    }
+    return has_digit;
 }
+
 
 void PhoneBook::show_saved_contact(void)
 {
-	std::cout<<std::endl<<"Contact successfully saved!"<<std::endl<<std::endl;
+	std::cout<<std::endl<<"Contact successfully saved!"<<std::endl<<"Details:"<<std::endl;
 	for (int i = 0; i < 5; i++)
-	{
 		std::cout<<prompt[i].substr(6)<<contacts[index].get_data(i)<<std::endl;
-	}//substr(6) will skip first 6 chars of a string: "Enter first name:", the result: "first name:"
+}
+
+bool PhoneBook::contact_overwrite()
+{
+	std::cout << "Phone book is full! Adding new contact will overwrite the oldest one" << std::endl;
+    std::cout << "Continue? (y/n):";
+    std::string input;
+    if (!std::getline(std::cin, input))
+    {
+        std::cout << "\nInput interrupted. Contact is not added." << std::endl;
+        return false;
+    }
+    if (input.empty() || input[0] != 'y')
+        return false;
+    return true;
 }
 
 void PhoneBook::add_contact(void)
 {
-	std::cout<<"index="<<index<<std::endl;//todo remove
-	if (index == 2)//todo
-	{//fu
-		std::cout<<"Phone book is full! Adding new contact will overwrite the oldest one"<<std::endl;
-		std::cout<<"Continue? (y/n):";
-		std::string input;
-		if (!std::getline(std::cin, input))
-    	{
-            std::cout<<"\nInput interrupted. Contact is not added."<<std::endl;
+	std::cout<<"index="<<index<<std::endl;//todo
+    if (index == 8)
+    {
+		if (!contact_overwrite())
+		return ;
+        index = 0;
+    }
+    std::string input;
+    for (int i = 0; i < 5;)
+    {
+        std::cout << prompt[i];
+        if (!std::getline(std::cin, input))
+        {
+            std::cout << "\nInput interrupted. Contact not fully added." << std::endl;
             return;
         }
-		if (input.empty() || input[0] != 'y')
-			return ;
-		index = 0;
-	}
-	std::string input;
-	for (int i = 0; i < 5;)
-	{
-		std::cout<<prompt[i];
-		//If getline() fails due to EOF (ctrl+D) or another input error
-		if (!std::getline(std::cin, input))
-    	{
-            std::cout<<"\nInput interrupted. Contact not fully added."<<std::endl;
-            return;
+        if (is_all_spaces(input))
+        {
+            std::cout << "No empty fields allowed!" << std::endl;
+            continue;
         }
-		if (is_all_spaces(input))//todo,input.empty() ||
-			std::cout<<"No empty fields allowed!"<< std::endl;
-		if (i == 3 && (input.empty() || !is_valid_phone_number(input)))
-		{
-			std::cout<<"Invalid phone number! Usage: digits, '+', '-'"<<std::endl;//todo
-			continue;
-		}
-		else
-		{
-		contacts[index].set_data(i, input);
-		i++;
-		}
-	}
-	show_saved_contact();
-	index++;
+        if (i == 3 && !is_valid_phone_number(input))
+        {
+            std::cout << "Invalid phone number! Usage: digits, '+', '-'" << std::endl;
+            continue;
+        }
+        contacts[index].set_data(i, input);
+        i++;
+    }
+    show_saved_contact();
+    index++;
 }
 
 // Display the saved contacts as a list of 4 columns: index, first name, last
@@ -96,18 +114,18 @@ void PhoneBook::add_contact(void)
 // contact information, one field per line.
 void PhoneBook::show_contacts(int index)
 {
-	std::cout<<std::setw(10)<<index + 1<<"|";
-	for (int i = 0; i < 3; i++)//first name, last name, nickname
+	std::cout<<std::setw(10)<<index + 1<<"|";//std::setfill(' '); by default
+	for (int i = 0; i < 3; i++)
 	{
 		std::string contact_data = contacts[index].get_data(i);
 		if (contact_data.length() > 10)
-		contact_data = contact_data.substr(0, 9) + ".";
-		std::cout<<std::setw(10)<<contact_data<<"|";//std::right by default
+		    contact_data = contact_data.substr(0, 9) + ".";
+		std::cout<<std::setw(10)<<contact_data<<"|";
 	}
 	std::cout<<std::endl;
 }
 
-void PhoneBook::show_index_contact(void)//todo,show_contact_y_index
+void PhoneBook::show_contact_details_by_index(void)
 {
 	std::string index;
 	int number = 0;
@@ -145,5 +163,5 @@ void PhoneBook::search_contact(void)
 		show_contacts(i);
 		i++;
 	}
-	show_index_contact();
+	show_contact_details_by_index();
 }
