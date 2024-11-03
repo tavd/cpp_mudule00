@@ -3,7 +3,8 @@
 
 #include <string>
 
-class Contact {
+class Contact 
+{
 	private:
 		std::string data[5];
 	public:

@@ -39,7 +39,7 @@ bool PhoneBook::is_valid_phone_number(const std::string &str)
             if (i == 0 || i == str.length() - 1 || str[i - 1] == '-')
                 return false;
         }
-        else
+        else //any other characters
             return false;
     }
     return has_digit;
@@ -58,7 +58,7 @@ bool PhoneBook::contact_overwrite()
 	std::cout << "Phone book is full! Adding new contact will overwrite the oldest one" << std::endl;
     std::cout << "Continue? (y/n):";
     std::string input;
-    if (!std::getline(std::cin, input))
+    if (!std::getline(std::cin, input))//getline
     {
         std::cout << "\nInput interrupted. Contact is not added." << std::endl;
         return false;
@@ -70,7 +70,6 @@ bool PhoneBook::contact_overwrite()
 
 void PhoneBook::add_contact(void)
 {
-	std::cout<<"index="<<index<<std::endl;//todo
     if (index == 8)
     {
 		if (!contact_overwrite())
@@ -84,7 +83,7 @@ void PhoneBook::add_contact(void)
         if (!std::getline(std::cin, input))
         {
             std::cout << "\nInput interrupted. Contact not fully added." << std::endl;
-            return;
+            return;//prints Enter command: then exits
         }
         if (is_all_spaces(input))
         {
@@ -93,7 +92,7 @@ void PhoneBook::add_contact(void)
         }
         if (i == 3 && !is_valid_phone_number(input))
         {
-            std::cout << "Invalid phone number! Usage: digits, '+', '-'" << std::endl;
+            std::cout << "Invalid phone number! Usage: digits, '+', '-'" << std::endl;//todo change usage
             continue;
         }
         contacts[index].set_data(i, input);
@@ -143,7 +142,7 @@ void PhoneBook::show_contact_details_by_index(void)
 			std::cout<<"NO such index (min index = 1, max = 8)!" << std::endl;
 	}
 		number = index[0] - '0';
-		if (contacts[number - 1].get_data(0).empty())
+		if (contacts[number - 1].get_data(0).empty())//if the first field is empty the whole contact is empty
 		{
 			std::cout<<"No contact saved at this index." << std::endl;
 			return ;

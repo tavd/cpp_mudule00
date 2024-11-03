@@ -17,7 +17,7 @@ int main()
         std::cout<<std::endl<<"Enter command: ";
         if (!std::getline(std::cin, input))
         {
-            std::cout<<std::endl;
+            std::cout<<std::endl;//todo
             return 0;
         }
         if (input == "EXIT" || input == "exit")
