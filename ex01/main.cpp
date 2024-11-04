@@ -13,6 +13,12 @@ int main()
         showPrompt = true; // Reset the flag before each command
         if (!std::getline(std::cin, input))
         {
+             // If std::getline fails (like after Ctrl+D), clear error state
+            if (std::cin.eof())
+            {
+            std::cin.clear();           // Clear EOF state
+            //    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore remaining input
+            }
             std::cout << std::endl;
             return 0;
         }
