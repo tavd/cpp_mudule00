@@ -68,12 +68,12 @@ bool PhoneBook::contact_overwrite()
     return true;
 }
 
-void PhoneBook::add_contact(void)
+bool PhoneBook::add_contact(void)
 {
     if (index == 8)
     {
-		if (!contact_overwrite())
-		return ;
+        if (!contact_overwrite())
+            return true;
         index = 0;
     }
     std::string input;
@@ -83,7 +83,7 @@ void PhoneBook::add_contact(void)
         if (!std::getline(std::cin, input))
         {
             std::cout << "\nInput interrupted. Contact not fully added." << std::endl;
-            return;//prints Enter command: then exits
+            return false; // Indicate interruption
         }
         if (is_all_spaces(input))
         {
@@ -92,7 +92,10 @@ void PhoneBook::add_contact(void)
         }
         if (i == 3 && !is_valid_phone_number(input))
         {
-            std::cout << "Invalid phone number! Usage: digits, '+', '-'" << std::endl;//todo change usage
+            std::cout << "Invalid phone number!" << std::endl
+                      << "Please enter a phone number containing only digits,"
+                      << " optional leading '+'," << std::endl
+                      << "and hyphens separating groups of digits (e.g., +1234, 567-890)." << std::endl;
             continue;
         }
         contacts[index].set_data(i, input);
@@ -100,6 +103,7 @@ void PhoneBook::add_contact(void)
     }
     show_saved_contact();
     index++;
+    return true; // Indicate successful completion
 }
 
 // Display the saved contacts as a list of 4 columns: index, first name, last

@@ -2,7 +2,6 @@
 # define BOOK_HPP
 
 #include "Contact.hpp"
-// #include <string>
 #include <iostream>
 #include <iomanip>
 
@@ -19,7 +18,7 @@ class PhoneBook {
 		bool	contact_overwrite(void);
 	public:
 		PhoneBook(void);
-		void	add_contact(void);
+		bool	add_contact(void);
 		void	search_contact(void);
 };
 
