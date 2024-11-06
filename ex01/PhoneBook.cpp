@@ -9,10 +9,10 @@ PhoneBook::PhoneBook(void) : index(0)
 	prompt[3] = "Enter phone number: ";
 	prompt[4] = "Enter darkest secret: ";
 	std::cout << std::endl << "Welcome to the phonebook!" << std::endl << std::endl;
-	std::cout<< "You can enter one of the following commands:" << std::endl;
-	std::cout<< "ADD/add - add a new contact" << std::endl;
-	std::cout<< "SEARCH/search - search for a contact by index" << std::endl;
-	std::cout<< "EXIT/exit - exit the program" << std::endl;
+	std::cout << "You can enter one of the following commands:" << std::endl;
+	std::cout << "ADD/add - add a new contact" << std::endl;
+	std::cout << "SEARCH/search - search for a contact by index" << std::endl;
+	std::cout << "EXIT/exit - exit the program" << std::endl;
 }
 
 bool PhoneBook::is_all_spaces(const std::string &str)
@@ -61,10 +61,7 @@ bool PhoneBook::contact_overwrite()
     std::cout << "Continue? (y/n):";
     std::string input;
     if (!std::getline(std::cin, input))
-    {
-        std::cout << "\nInput interrupted. Contact is not added." << std::endl;
         return false;
-    }
     if (input.empty() || input[0] != 'y')
         return false;
     return true;
