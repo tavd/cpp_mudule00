@@ -1,5 +1,5 @@
 #include "PhoneBook.hpp"
-
+#include <limits>
 int main()
 {
     PhoneBook phoneBook;
@@ -17,7 +17,7 @@ int main()
             if (std::cin.eof())
             {
             std::cin.clear();           // Clear EOF state
-            //    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore remaining input
+               std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore remaining input
             }
             std::cout << std::endl;
             return 0;
