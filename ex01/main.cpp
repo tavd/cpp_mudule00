@@ -1,40 +1,30 @@
 #include "PhoneBook.hpp"
 #include <limits>
-int main()
-{
-    PhoneBook phoneBook;
-    std::string input;
-    bool showPrompt = true; // Controls whether to show "Enter command:"
 
-    while (1)
-    {
-        if (showPrompt)
-            std::cout << std::endl << "Enter command:";
-        showPrompt = true; // Reset the flag before each command
-        if (!std::getline(std::cin, input))
-        {
-             // If std::getline fails (like after Ctrl+D), clear error state
-            if (std::cin.eof())
-            {
-            std::cin.clear();           // Clear EOF state
-               std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore remaining input
-            }
+int main(void)
+{
+	PhoneBook book;
+	std::string command;
+	while (command != "EXIT" && command != "exit")
+	{
+  		if (std::cin.good())
+		{
+			std::cout << "Enter command: ";
+			std::getline(std::cin, command);
             std::cout << std::endl;
-            return 0;
-        }
-        if (input == "EXIT" || input == "exit")
-            break;
-        else if (input == "ADD" || input == "add")
-        {
-            if (!phoneBook.add_contact())
-            {
-                showPrompt = false; // Prevents "Enter command:" after interruption
-                continue;
-            }
-        }
-        else if (input == "SEARCH" || input == "search")
-            phoneBook.search_contact();
-        else
-            std::cout << "Invalid command! Enter a valid one!" << std::endl;
-    }
+		}
+		else
+		{
+			std::cout << std::endl;
+			return (0);
+		}
+		if (command.compare("ADD") == 0 || command.compare("add") == 0)
+			book.add_contact();
+		else if (command.compare("SEARCH") == 0 || command.compare("search") == 0)
+			book.search_contact();
+		else if (command != "EXIT" && command != "exit")
+			std::cout << "Invalid command! Enter valid one!" << std::endl;
+	}
+	return (0);
 }
+

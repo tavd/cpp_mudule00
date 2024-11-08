@@ -11,7 +11,7 @@
 #include <vector>
 #include <algorithm>
 #include <functional>
-
+#include <ctime>     // for std::time and std::localtime
 #include "Account.hpp"
 
 
@@ -100,7 +100,7 @@ int		main( void ) {
 //     it.second points to deposits[1] (200).
 //     accounts[1].makeDeposit(200) is called.
 Account::displayAccountsInfos();
-	std::for_each( acc_begin, acc_end, std::mem_fn( &Account::displayStatus ) );
+	std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
 
 	for ( acc_int_t it( acc_begin, dep_begin );
 		  it.first != acc_end && it.second != dep_end;
@@ -109,7 +109,7 @@ Account::displayAccountsInfos();
 	}
 
 	Account::displayAccountsInfos();
-	std::for_each( acc_begin, acc_end, std::mem_fn( &Account::displayStatus ) );
+	std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
 
 	for ( acc_int_t it( acc_begin, wit_begin );
 		  it.first != acc_end && it.second != wit_end;
@@ -118,7 +118,7 @@ Account::displayAccountsInfos();
 	}
 
 	Account::displayAccountsInfos();
-	std::for_each( acc_begin, acc_end, std::mem_fn( &Account::displayStatus ) );
+	std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
 
 	return 0;
 }

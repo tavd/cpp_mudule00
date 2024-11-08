@@ -12,7 +12,7 @@ PhoneBook::PhoneBook(void) : index(0)
 	std::cout << "You can enter one of the following commands:" << std::endl;
 	std::cout << "ADD/add - add a new contact" << std::endl;
 	std::cout << "SEARCH/search - search for a contact by index" << std::endl;
-	std::cout << "EXIT/exit - exit the program" << std::endl;
+	std::cout << "EXIT/exit - exit the program" << std::endl<< std::endl;
 }
 
 bool PhoneBook::is_all_spaces(const std::string &str)
@@ -53,6 +53,7 @@ void PhoneBook::show_saved_contact(void)
 	std::cout<<std::endl<<"Contact successfully saved!"<<std::endl<<std::endl<<"Details:"<<std::endl;
 	for (int i = 0; i < 5; i++)
 		std::cout<<prompt[i].substr(6)<<contacts[index].get_data(i)<<std::endl;
+        std::cout << std::endl;
 }
 
 bool PhoneBook::contact_overwrite()
@@ -67,12 +68,12 @@ bool PhoneBook::contact_overwrite()
     return true;
 }
 
-bool PhoneBook::add_contact(void)
+void PhoneBook::add_contact(void)
 {
     if (index == 8)
     {
         if (!contact_overwrite())
-            return true;
+            return ;
         index = 0;
     }
     std::string input;
@@ -80,7 +81,7 @@ bool PhoneBook::add_contact(void)
     {
         std::cout << prompt[i];
         if (!std::getline(std::cin, input))
-            return false;
+            return ;
         if (is_all_spaces(input))
         {
             std::cout << "No empty fields allowed!" << std::endl;
@@ -99,7 +100,6 @@ bool PhoneBook::add_contact(void)
     }
     show_saved_contact();
     index++;
-    return true;
 }
 
 // Display the saved contacts as a list of 4 columns: index, first name, last
@@ -124,40 +124,49 @@ void PhoneBook::show_contacts(int index)
 	std::cout<<std::endl;
 }
 
-void PhoneBook::show_contact_details_by_index(void)
+void PhoneBook::search_contact_details_by_index(void)
 {
 	std::string input;
 	int index = 0;
 	while (1)
 	{
-		std::cout<< std::endl << "Enter index of the contact: ";
+		std::cout<< std::endl << "Enter index of a contact: ";
 		if (!std::getline(std::cin, input))
 			return ;
 		if (input.length() == 1 && input[0] >= '1' && input[0] <= '8')
 			break ;
 		else
-			std::cout<<"NO such index (min index = 1, max = 8)!" << std::endl;
+        {
+			std::cout<<"No such index (min index = 1, max = 8)!" << std::endl;
+            continue ;
+        }
 	}
 		index = input[0] - '0';
 		if (contacts[index - 1].get_data(0).empty())
 		{
-			std::cout<<"No contact saved at this index." << std::endl;
+			std::cout<< std::endl << "No contact saved at this index!" << std::endl << std::endl;
 			return ;
 		}
         std::cout << std::endl;
         std::cout << "Contact info:" << std::endl;
 		for (int i = 0; i < 5; i++)
 		std::cout << prompt[i].substr(6)<<contacts[index - 1].get_data(i) << std::endl;
+        std::cout << std::endl;
 }
 
 void PhoneBook::search_contact(void)
 {
-	std::cout<<std::endl<<"Choose a contact to search from the list below:"<<std::endl;
 	int i = 0;
+    if( !contacts[i].get_data(0).empty())
+    std::cout << "Choose a contact to search from the list below:" << std::endl;
 	while (i < 8 && !contacts[i].get_data(0).empty())
 	{
 		show_contacts(i);
 		i++;
 	}
-	show_contact_details_by_index();
+    if (contacts[0].get_data(0).empty())
+        std::cout<< "Phone book is empty!" << std::endl << std::endl;
+    else
+	    search_contact_details_by_index();
 }
+
