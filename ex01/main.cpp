@@ -1,30 +1,33 @@
 #include "PhoneBook.hpp"
-#include <limits>
 
 int main(void)
 {
-	PhoneBook book;
-	std::string command;
-	while (command != "EXIT" && command != "exit")
-	{
+	PhoneBook phoneBook;
+	std::string input;
+	while (input != "EXIT" && input != "exit")
+	{    //checks if the last operation on std::cin was successful
   		if (std::cin.good())
 		{
 			std::cout << "Enter command: ";
-			std::getline(std::cin, command);
+            if (!std::getline(std::cin, input))
+			{
+              std::cout << std::endl;
+              return 0;
+            }
             std::cout << std::endl;
 		}
 		else
 		{
 			std::cout << std::endl;
-			return (0);
+			return 0;
 		}
-		if (command.compare("ADD") == 0 || command.compare("add") == 0)
-			book.add_contact();
-		else if (command.compare("SEARCH") == 0 || command.compare("search") == 0)
-			book.search_contact();
-		else if (command != "EXIT" && command != "exit")
-			std::cout << "Invalid command! Enter valid one!" << std::endl;
+		if (input.compare("ADD") == 0 || input.compare("add") == 0)
+			phoneBook.add_contact();
+		else if (input.compare("SEARCH") == 0 || input.compare("search") == 0)
+			phoneBook.search_contact();
+		else if (input != "EXIT" && input != "exit")
+			std::cout << "Invalid command! Enter command from the list above!" << std::endl;
 	}
-	return (0);
+    	return 0;
 }
 

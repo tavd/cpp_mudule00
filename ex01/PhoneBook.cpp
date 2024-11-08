@@ -157,7 +157,7 @@ void PhoneBook::search_contact_details_by_index(void)
 void PhoneBook::search_contact(void)
 {
 	int i = 0;
-    if( !contacts[i].get_data(0).empty())
+    if(!contacts[i].get_data(0).empty())
     std::cout << "Choose a contact to search from the list below:" << std::endl;
 	while (i < 8 && !contacts[i].get_data(0).empty())
 	{
@@ -169,4 +169,3 @@ void PhoneBook::search_contact(void)
     else
 	    search_contact_details_by_index();
 }
-
