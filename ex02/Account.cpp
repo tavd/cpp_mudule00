@@ -117,15 +117,12 @@ bool Account::makeWithdrawal(int withdrawal)
 		std::cout<<"withdrawal:refused"<<std::endl;
 		return false;
 	}
-	// else
-	// {
 	_amount -= withdrawal;
 	_totalAmount -= withdrawal;
 	_nbWithdrawals++;
 	_totalNbWithdrawals++;
 	std::cout<<"withdrawal:"<<withdrawal<<";""amount:"<<_amount<<";"<<"nb_withdrawals:"<<_nbWithdrawals<<std::endl;
 	return true;
-	// }
 }
 
 Account::~Account(void)

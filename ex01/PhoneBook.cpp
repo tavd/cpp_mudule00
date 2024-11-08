@@ -85,7 +85,7 @@ void PhoneBook::add_contact(void)
         if (is_all_spaces(input))
         {
             std::cout << "No empty fields allowed!" << std::endl;
-            continue;
+            continue ;
         }
         if (i == 3 && !is_valid_phone_number(input))
         {
@@ -101,7 +101,7 @@ void PhoneBook::add_contact(void)
     show_saved_contact();
     index++;
 }
-
+//• SEARCH: display a specific contact
 // Display the saved contacts as a list of 4 columns: index, first name, last
 // name and nickname.
 // ◦ Each column must be 10 characters wide. A pipe character (’|’) separates
@@ -150,7 +150,7 @@ void PhoneBook::search_contact_details_by_index(void)
         std::cout << std::endl;
         std::cout << "Contact info:" << std::endl;
 		for (int i = 0; i < 5; i++)
-		std::cout << prompt[i].substr(6)<<contacts[index - 1].get_data(i) << std::endl;
+		std::cout << prompt[i].substr(6) << contacts[index - 1].get_data(i) << std::endl;
         std::cout << std::endl;
 }
 
@@ -158,7 +158,7 @@ void PhoneBook::search_contact(void)
 {
 	int i = 0;
     if(!contacts[i].get_data(0).empty())
-    std::cout << "Choose a contact to search from the list below:" << std::endl;
+        std::cout << "Choose a contact to search from the list below:" << std::endl;
 	while (i < 8 && !contacts[i].get_data(0).empty())
 	{
 		show_contacts(i);

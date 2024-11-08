@@ -1,7 +1,6 @@
 #include "Contact.hpp"
 
-Contact::Contact(void)
-{}
+Contact::Contact(void){}
 
 void Contact::set_data(int index, std::string input)
 {
