@@ -50,7 +50,7 @@ bool PhoneBook::is_valid_phone_number(const std::string &str)
 
 void PhoneBook::show_saved_contact(void)
 {
-	std::cout<<std::endl<<"Contact successfully saved!"<<std::endl<<std::endl<<"Details:"<<std::endl;
+	std::cout<<std::endl << "Contact successfully saved!" << std::endl<<std::endl<<"Details:"<<std::endl;
 	for (int i = 0; i < 5; i++)
 		std::cout<<prompt[i].substr(6)<<contacts[index].get_data(i)<<std::endl;
         std::cout << std::endl;
@@ -113,7 +113,7 @@ void PhoneBook::add_contact(void)
 // contact information, one field per line.
 void PhoneBook::show_contacts(int index)
 {
-	std::cout<<std::setw(10)<<index + 1<<"|";//std::setfill(' '); by default
+	std::cout << std::setw(10)<<index + 1<<"|";//std::setfill(' '); by default
 	for (int i = 0; i < 3; i++)
 	{
 		std::string contact_data = contacts[index].get_data(i);
@@ -130,7 +130,7 @@ void PhoneBook::search_contact_details_by_index(void)
 	int index = 0;
 	while (1)
 	{
-		std::cout<< std::endl << "Enter index of a contact: ";
+		std::cout << std::endl << "Enter index of a contact: ";
 		if (!std::getline(std::cin, input))
 			return ;
 		if (input.length() == 1 && input[0] >= '1' && input[0] <= '8')
@@ -158,7 +158,7 @@ void PhoneBook::search_contact(void)
 {
 	int i = 0;
     if(!contacts[i].get_data(0).empty())
-        std::cout << "Choose a contact to search from the list below:" << std::endl;
+    std::cout << "Choose a contact to search from the list below:" << std::endl;
 	while (i < 8 && !contacts[i].get_data(0).empty())
 	{
 		show_contacts(i);

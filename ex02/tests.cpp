@@ -27,10 +27,10 @@ int		main( void ) {
 	//The range constructor initializes the accounts vector with elements from the specified range: [amounts, amounts + amounts_size).
 	//The range constructor of std::vector is a constructor that allows you to create a std::vector by copying elements
 	// from a specified range of iterators (or pointers).
-	// for each element in accounts, the Account(int initial_deposit) constructor is called to create and initialize it with 
-	// the corresponding number from the amounts array.
+	// for each element in accounts, the Account(int initial_deposit) constructor is called to create 
+	// and initialize it with the corresponding number from the amounts array.
 	accounts_t				accounts(amounts, amounts + amounts_size);
-	// Account a(45);
+	// Account a(42); Account a(54); ...
 	accounts_t::iterator	acc_begin	= accounts.begin();
 	accounts_t::iterator	acc_end		= accounts.end();
 
@@ -100,6 +100,9 @@ int		main( void ) {
 //     it.second points to deposits[1] (200).
 //     accounts[1].makeDeposit(200) is called.
 Account::displayAccountsInfos();
+//Iterates through all Account objects in the vector accounts, from acc_begin to acc_end.
+//For each Account object, it calls the displayStatus() member function.
+// &Account::displayStatus - a pointer to the displayStatus member function of the Account class.
 	std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
 
 	for ( acc_int_t it( acc_begin, dep_begin );
@@ -119,7 +122,7 @@ Account::displayAccountsInfos();
 
 	Account::displayAccountsInfos();
 	std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
-
+//todo where do we call the destructor?
 	return 0;
 }
 

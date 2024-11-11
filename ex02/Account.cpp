@@ -1,14 +1,14 @@
-#include <iostream>
-#include <iomanip>
-#include <ctime>     //for std::time and std::localtime
+
 #include "Account.hpp"
 
-//Even though they are initialized to zero, you typically want to explicitly initialize static members for clarity and control.
-int Account::_nbAccounts = 0;//getters setters for the static fields?
+//Even though they are initialized to zero, you typically want to 
+// explicitly initialize static members for clarity and control.
+int Account::_nbAccounts = 0;
 int Account::_totalAmount = 0;
 int Account::_totalNbDeposits = 0;
 int Account::_totalNbWithdrawals = 0;
 
+//if implemented can be used only inside this class and still inaccessible to code outside the class.
 Account::Account(){}
 
 Account::Account(int initial_deposit)
@@ -17,13 +17,13 @@ Account::Account(int initial_deposit)
 	//[19920104_091532] index:0;amount:42;created
 	//[19920104_091532] index:7;amount:16576;created
 	_displayTimestamp();
-	_accountIndex = Account::_nbAccounts;
+	_accountIndex = _nbAccounts;
 	_amount = initial_deposit;
 	_nbDeposits = 0;
 	_nbWithdrawals = 0;
 	_totalAmount += _amount;//amount in all accounts
 	_nbAccounts++;
-	std::cout<<"index:"<<_accountIndex<<";"<<"amount:"<<checkAmount()<<";"<<"created"<<std::endl;
+	std::cout << "index:" << _accountIndex << ";" << "amount:" << _amount << ";"<<"created"<<std::endl;//checkAmount()
 }
 
 int	Account::getNbAccounts(void)
@@ -77,24 +77,25 @@ void Account::_displayTimestamp(void)
 void Account::displayAccountsInfos( void )
 {
 		_displayTimestamp();
-		std::cout<<"accounts:"<<_nbAccounts<<";"<<"total:"<<_totalAmount<<";"//getNbAccounts()
+		std::cout << "accounts:" << _nbAccounts << ";" << "total:" << _totalAmount << ";"//getNbAccounts()
 		<<"deposits:"<<_totalNbDeposits<<";"
 		<<"withdrawals:"<<_totalNbWithdrawals<<std::endl;
 }
 
 //19920104_091532] index:0;amount:42;deposits:0;withdrawals:0
+// status of each account
 void Account::displayStatus(void) const
 {
 	_displayTimestamp();
-	std::cout<<"index:"<<_accountIndex<<";"<<"amount:"<<_amount<<";"<<"deposits:"<<_totalNbDeposits<<";"
-	<<"withdrawals:"<<_totalNbWithdrawals<<std::endl;
+	std::cout << "index:" << _accountIndex << ";" << "amount:" << _amount << ";" << "deposits:" << _nbDeposits<<";"
+	<< "withdrawals:" << _nbWithdrawals << std::endl;
 }
 //[19920104_091532] index:0;p_amount:42;deposit:5;amount:47;nb_deposits:1
 void Account::makeDeposit(int deposit)
 {
 	_displayTimestamp();
-	std::cout<<"index:"<<_accountIndex<<";"<<"p_amount:"<<_amount<<";"
-	<<"deposit:"<<deposit<<";";
+	std::cout << "index:" << _accountIndex << ";" << "p_amount:" << _amount <<";"
+	<< "deposit:" << deposit <<";";
 	_amount += deposit;
 	_totalAmount += deposit;
 	_nbDeposits++;
@@ -103,15 +104,13 @@ void Account::makeDeposit(int deposit)
 }
 //[19920104_091532] index:0;p_amount:47;withdrawal:refused
 // [19920104_091532] index:1;p_amount:819;withdrawal:34;amount:785;nb_withdrawals:1
-// [19920104_091532] index:2;p_amount:1521;withdrawal:657;amount:864;nb_withdrawals:1
-// [19920104_091532] index:3;p_amount:434;withdrawal:4;amount:430;nb_withdrawals:1
 bool Account::makeWithdrawal(int withdrawal)
 {
 	_displayTimestamp();
-	std::cout<<"index:"<<_accountIndex<<";"<<"p_amount:"<<_amount<<";";
+	std::cout << "index:" << _accountIndex << ";" << "p_amount:" << _amount << ";";
 	if (_amount < withdrawal)
 	{
-		std::cout<<"withdrawal:refused"<<std::endl;
+		std::cout << "withdrawal:refused" << std::endl;
 		return false;
 	}
 	_amount -= withdrawal;
