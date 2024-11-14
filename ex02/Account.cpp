@@ -13,8 +13,6 @@ Account::Account(){}
 
 Account::Account(int initial_deposit)
 {
-	//8 accounts created:
-	//[19920104_091532] index:0;amount:42;created
 	//[19920104_091532] index:7;amount:16576;created
 	_displayTimestamp();
 	_accountIndex = _nbAccounts;
@@ -23,9 +21,11 @@ Account::Account(int initial_deposit)
 	_nbWithdrawals = 0;
 	_totalAmount += _amount;//amount in all accounts
 	_nbAccounts++;
-	std::cout << "index:" << _accountIndex << ";" << "amount:" << _amount << ";"<<"created"<<std::endl;//checkAmount()
+	std::cout << "index:" << _accountIndex << ";" << "amount:" << _amount << ";" <<"created"<<std::endl;//checkAmount()
 }
-
+// Since both the static function (getNbAccounts()) and the static field (_nbAccounts) 
+// belong to the same class, there’s no need to qualify _nbAccounts with the class name inside the function.
+// getters will be useful if we want to accsess the private fields outside the class
 int	Account::getNbAccounts(void)
 {
 	return _nbAccounts;
@@ -45,11 +45,7 @@ int Account::getNbWithdrawals(void)
 {
 	return _totalNbWithdrawals;
 }
-// Within the class scope: When you are inside a static member function, like Account::getNbAccounts(), 
-// you are already in the class scope. This means the compiler knows that _nbAccounts refers 
-// to the static member of the Account class.
-// Access to static fields: Since both the static function (getNbAccounts()) and the static field (_nbAccounts) 
-// belong to the same class, there’s no need to qualify _nbAccounts with the class name inside the function.
+
 int Account::checkAmount(void) const
 {
 	return _amount;
@@ -57,7 +53,7 @@ int Account::checkAmount(void) const
 
 void Account::_displayTimestamp(void)
 {
-// returns the current time as a time_t value, which is typically the number of seconds that 
+// returns the current time which is typically the number of seconds that 
 // have elapsed since the Unix epoch (January 1, 1970, 00:00:00 UTC).
 	time_t current_time = std::time(NULL);
 	//struct tm is a structure that holds the components of calendar time, such as year, month, day, hour, minute, and second.
@@ -74,10 +70,11 @@ void Account::_displayTimestamp(void)
 
 //[19920104_091532] accounts:8;total:20049;deposits:0;withdrawals:0
 //private static fields are accessible from public static functions within the same class
+//Static functions cannot access non-static fields because they don’t have a this pointer.
 void Account::displayAccountsInfos( void )
 {
 		_displayTimestamp();
-		std::cout << "accounts:" << _nbAccounts << ";" << "total:" << _totalAmount << ";"//getNbAccounts()
+		std::cout << "accounts:" << _nbAccounts << ";" << "total:" <<_totalAmount << ";"//getNbAccounts()
 		<<"deposits:"<<_totalNbDeposits<<";"
 		<<"withdrawals:"<<_totalNbWithdrawals<<std::endl;
 }
@@ -91,6 +88,9 @@ void Account::displayStatus(void) const
 	<< "withdrawals:" << _nbWithdrawals << std::endl;
 }
 //[19920104_091532] index:0;p_amount:42;deposit:5;amount:47;nb_deposits:1
+// Static fields can be accessed within the class, 
+// including by non-static and static member functions, using the field name directly. 
+// Outside the class, they must be accessed using the class name (Account::field_name).
 void Account::makeDeposit(int deposit)
 {
 	_displayTimestamp();
@@ -104,27 +104,26 @@ void Account::makeDeposit(int deposit)
 }
 //[19920104_091532] index:0;p_amount:47;withdrawal:refused
 // [19920104_091532] index:1;p_amount:819;withdrawal:34;amount:785;nb_withdrawals:1
-bool Account::makeWithdrawal(int withdrawal)
+void Account::makeWithdrawal(int withdrawal)
 {
 	_displayTimestamp();
 	std::cout << "index:" << _accountIndex << ";" << "p_amount:" << _amount << ";";
 	if (_amount < withdrawal)
 	{
 		std::cout << "withdrawal:refused" << std::endl;
-		return false;
+		return ;
 	}
 	_amount -= withdrawal;
 	_totalAmount -= withdrawal;
 	_nbWithdrawals++;
 	_totalNbWithdrawals++;
 	std::cout<<"withdrawal:"<<withdrawal<<";""amount:"<<_amount<<";"<<"nb_withdrawals:"<<_nbWithdrawals<<std::endl;
-	return true;
 }
 
 Account::~Account(void)
 {
 	_displayTimestamp();
 	std::cout<<"index:" <<_accountIndex<<";"<<
-	"amount:" <<checkAmount()<<";"<<
+	"amount:" << _amount <<";"<< //checkAmount()
 	"closed"<<std::endl;
 }

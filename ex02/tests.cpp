@@ -47,6 +47,8 @@ int		main( void ) {
 	ints_t::iterator	wit_begin	= withdrawals.begin();
 	ints_t::iterator	wit_end		= withdrawals.end();
 
+Account::displayAccountsInfos();
+//-----------------------------------------------------------------
 	// std::mem_fun_ref:
     // This is a standard library function adapter that creates a function object (functor) for member functions of objects. 
 	//(std::mem_fun_ref is an adapter that converts a member function into a callable functor.)
@@ -55,56 +57,27 @@ int		main( void ) {
 // std::mem_fun_ref(ReturnType (ClassType::*func)()) 
 // func: A pointer to a member function of the class.
 // It creates a function object that can be used with algorithms like std::for_each.
-
 // &Account::displayStatus:
 //     This is a pointer to the displayStatus member function of the Account class.
-//     displayStatus is assumed to be a method of Account that does not take any parameters and 
-// returns void (based on typical usage with std::mem_fun_ref).
 
-//     Iterates through all Account objects in the vector accounts, from acc_begin to acc_end.
-    // For each Account object, it calls the displayStatus() member function.
-	// std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
-
-// std::pair is a template class in the C++ Standard Library that holds two values (or objects) of possibly different types. 
-// It is commonly used to return two related values from a function or to store pairs of associated data.
-// The pair is defined as:
-// template <class T1, class T2>
-// struct pair {
-//     T1 first;
-//     T2 second;
-// };
-// first holds the first value of type T1, and second holds the second value of type T2.
-// acc_int_t it(acc_begin, dep_begin); initializes a variable it of type acc_int_t 
-// (which is a std::pair<accounts_t::iterator, ints_t::iterator>).
-// Here, it.first points to the first Account in the accounts vector (using the iterator acc_begin), 
-// and it.second points to the first integer in the deposits vector (using the iterator dep_begin).
-//     it.first != acc_end: Checks that the iterator for Account objects has not reached the end of the accounts vector.
-//     it.second != dep_end: Checks that the iterator for integers has not reached the end of the deposits vector.
-// The loop continues as long as both conditions are true.
-// ++(it.first) increments the iterator pointing to the Account vector to move to the next Account.
-// ++(it.second) increments the iterator pointing to the deposits vector to move to the next integer.
-// This increments both iterators at the end of each loop iteration.
-// The expression *(it.first) dereferences the iterator pointing to the current Account object.
-// The expression *(it.second) dereferences the iterator pointing to the current integer (deposit amount).
-// The method makeDeposit is then called on the current Account object, passing the current integer as an argument.
-// Summary of the Loop's Purpose:
-//     The loop processes both vectors simultaneously:
-//     For each Account object in the accounts vector, it calls the makeDeposit method, passing the corresponding deposit amount from the deposits vector.
-//     This means that for each Account, the associated deposit amount (from the corresponding index in the deposits vector) is applied.
-// First Iteration:
-//     it.first points to accounts[0] (Account 1).
-//     it.second points to deposits[0] (100).
-//     accounts[0].makeDeposit(100) is called.
-// Second Iteration:
-//     it.first points to accounts[1] (Account 2).
-//     it.second points to deposits[1] (200).
-//     accounts[1].makeDeposit(200) is called.
-Account::displayAccountsInfos();
+//------------------------------------------------------------------
 //Iterates through all Account objects in the vector accounts, from acc_begin to acc_end.
 //For each Account object, it calls the displayStatus() member function.
 // &Account::displayStatus - a pointer to the displayStatus member function of the Account class.
 	std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
+//acc_int_t it(acc_begin, wit_begin); creates an object it of type std::pair<accounts_t::iterator, ints_t::iterator>
+//and initializes it with acc_begin and wit_begin. This line calls the std::pair constructor that takes
+//two arguments (one for each member of the pair). It initializes it.first with acc_begin and it.second with wit_begin.
 
+//     The loop processes both vectors simultaneously:
+//     For each Account object in the accounts vector, it calls the makeDeposit method, 
+// passing the corresponding deposit amount from the deposits vector.
+//     This means that for each Account, the associated deposit 
+// amount (from the corresponding index in the deposits vector) is applied.
+// First Iteration:
+//     it.first points to accounts[0] (Account 1).
+//     it.second points to deposits[0] (100).
+//     accounts[0].makeDeposit(100) is called.
 	for ( acc_int_t it( acc_begin, dep_begin );
 		  it.first != acc_end && it.second != dep_end;
 		  ++(it.first), ++(it.second) ) {
@@ -122,7 +95,7 @@ Account::displayAccountsInfos();
 
 	Account::displayAccountsInfos();
 	std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
-//todo where do we call the destructor?
+
 	return 0;
 }
 
