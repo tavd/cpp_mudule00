@@ -1,7 +1,7 @@
 #include "Contact.hpp"
 #include "PhoneBook.hpp"
 
-PhoneBook::PhoneBook(void) : index(0)
+PhoneBook::PhoneBook(void) : contact_index(0)
 {
     prompt[0] = "Enter first name: ";
 	prompt[1] = "Enter last name: ";
@@ -52,7 +52,7 @@ void PhoneBook::show_saved_contact(void)
 {
 	std::cout<<std::endl << "Contact successfully saved!" << std::endl<<std::endl<<"Details:"<<std::endl;
 	for (int i = 0; i < 5; i++)
-		std::cout<<prompt[i].substr(6)<<contacts[index].get_data(i)<<std::endl;
+		std::cout << prompt[i].substr(6) << contacts[contact_index].get_data(i)<<std::endl;
         std::cout << std::endl;
 }
 
@@ -70,11 +70,11 @@ bool PhoneBook::contact_overwrite()
 
 void PhoneBook::add_contact(void)
 {
-    if (index == 8)
+    if (contact_index == 8)
     {
         if (!contact_overwrite())
             return ;
-        index = 0;
+        contact_index = 0;
     }
     std::string input;
     for (int i = 0; i < 5;)
@@ -95,11 +95,11 @@ void PhoneBook::add_contact(void)
                       << "and hyphens separating groups of digits (e.g., +1234, 567-890)." << std::endl;
             continue;
         }
-        contacts[index].set_data(i, input);
+        contacts[contact_index].set_data(i, input);
         i++;
     }
     show_saved_contact();
-    index++;
+    contact_index++;
 }
 //• SEARCH: display a specific contact
 // Display the saved contacts as a list of 4 columns: index, first name, last

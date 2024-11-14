@@ -7,7 +7,7 @@
 
 class PhoneBook {
 	private:
-		int		index;
+		int		contact_index;
 		Contact contacts[8];
 		std::string prompt[5];
 		bool	is_all_spaces(const std::string& str);
