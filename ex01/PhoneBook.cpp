@@ -1,7 +1,7 @@
 #include "Contact.hpp"
 #include "PhoneBook.hpp"
 
-PhoneBook::PhoneBook(void) : contact_index(0)
+PhoneBook::PhoneBook(void) : current_contact_index(0)
 {
     prompt[0] = "Enter first name: ";
 	prompt[1] = "Enter last name: ";
@@ -27,12 +27,11 @@ bool PhoneBook::is_all_spaces(const std::string &str)
 
 bool PhoneBook::is_valid_phone_number(const std::string &str)
 {
-    bool has_digit = false;
     for (std::string::size_type i = 0; i < str.length(); i++)
     {
-        if (std::isdigit(str[i]))
-            has_digit = true;
-        else if (str[i] == '+')
+        if (!std::isdigit(str[i]))
+        {
+        if (str[i] == '+')
         {
             if (i != 0)
             return false;
@@ -40,19 +39,20 @@ bool PhoneBook::is_valid_phone_number(const std::string &str)
         else if (str[i] == '-')
         {
             if (i == 0 || i == str.length() - 1 || str[i - 1] == '-')
-                return false;
+            return false;
         }
         else
             return false;
+        }
     }
-    return has_digit;
+    return true;
 }
 
 void PhoneBook::show_saved_contact(void)
 {
-	std::cout<<std::endl << "Contact successfully saved!" << std::endl<<std::endl<<"Details:"<<std::endl;
+	std::cout<<std::endl << "Contact successfully saved!" << std::endl << std::endl << "Details:" << std::endl;
 	for (int i = 0; i < 5; i++)
-		std::cout << prompt[i].substr(6) << contacts[contact_index].get_data(i)<<std::endl;
+		std::cout << prompt[i].substr(6) << contacts[current_contact_index].get_data(i)<<std::endl;
         std::cout << std::endl;
 }
 
@@ -70,11 +70,11 @@ bool PhoneBook::contact_overwrite()
 
 void PhoneBook::add_contact(void)
 {
-    if (contact_index == 8)
+    if (current_contact_index == 8)
     {
         if (!contact_overwrite())
             return ;
-        contact_index = 0;
+        current_contact_index = 0;
     }
     std::string input;
     for (int i = 0; i < 5;)
@@ -95,33 +95,32 @@ void PhoneBook::add_contact(void)
                       << "and hyphens separating groups of digits (e.g., +1234, 567-890)." << std::endl;
             continue;
         }
-        contacts[contact_index].set_data(i, input);
+        contacts[current_contact_index].set_data(i, input);
         i++;
     }
     show_saved_contact();
-    contact_index++;
+    current_contact_index++;
 }
 //• SEARCH: display a specific contact
 // Display the saved contacts as a list of 4 columns: index, first name, last
 // name and nickname.
 // ◦ Each column must be 10 characters wide. A pipe character (’|’) separates
 // them. The text must be right-aligned. If the text is longer than the column,
-// it must be truncated and the last displayable character must be replaced by a
-// dot (’.’).
+// it must be truncated and the last displayable character must be replaced by a dot (’.’).
 // ◦ Then, prompt the user again for the index of the entry to display. If the index
 // is out of range or wrong, define a relevant behavior. Otherwise, display the
 // contact information, one field per line.
 void PhoneBook::show_contacts(int index)
 {
-	std::cout << std::setw(10)<<index + 1<<"|";//std::setfill(' '); by default
+	std::cout << std::setw(10)<< index + 1 << "|";//std::right, std::setfill(' '); by default
 	for (int i = 0; i < 3; i++)
 	{
-		std::string contact_data = contacts[index].get_data(i);
+		std::string contact_data = contacts[index].get_data(i);//contacts[0].get_data(0)=first_name
 		if (contact_data.length() > 10)
-		    contact_data = contact_data.substr(0, 9) + ".";
-		std::cout<<std::setw(10)<<contact_data<<"|";
+		    contact_data = contact_data.substr(0, 9) + ".";//first 9 chars + '.'
+		std::cout << std::setw(10) << contact_data << "|";
 	}
-	std::cout<<std::endl;
+	std::cout << std::endl;
 }
 
 void PhoneBook::search_contact_details_by_index(void)

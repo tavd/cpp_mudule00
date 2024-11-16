@@ -7,7 +7,7 @@
 
 class PhoneBook {
 	private:
-		int		contact_index;
+		int		current_contact_index; // Tracks the current index for adding/overwriting		
 		Contact contacts[8];
 		std::string prompt[5];
 		bool	is_all_spaces(const std::string& str);
