@@ -101,6 +101,7 @@ void PhoneBook::add_contact(void)
     show_saved_contact();
     current_contact_index++;
 }
+
 //• SEARCH: display a specific contact
 // Display the saved contacts as a list of 4 columns: index, first name, last
 // name and nickname.
@@ -110,18 +111,20 @@ void PhoneBook::add_contact(void)
 // ◦ Then, prompt the user again for the index of the entry to display. If the index
 // is out of range or wrong, define a relevant behavior. Otherwise, display the
 // contact information, one field per line.
+
 void PhoneBook::show_contacts(int index)
 {
-	std::cout << std::setw(10)<< index + 1 << "|";//std::right, std::setfill(' '); by default
-	for (int i = 0; i < 3; i++)
-	{
-		std::string contact_data = contacts[index].get_data(i);//contacts[0].get_data(0)=first_name
-		if (contact_data.length() > 10)
-		    contact_data = contact_data.substr(0, 9) + ".";//first 9 chars + '.'
-		std::cout << std::setw(10) << contact_data << "|";
-	}
-	std::cout << std::endl;
+    std::cout << std::setw(10) << index + 1 << "|";//std::right, std::setfill(' '); by default
+    for (int i = 0; i < 3; i++)
+    {
+        std::string result = contacts[index].get_data(i);
+        if (result.length() > 10)
+            result = result.substr(0, 9) + ".";
+        std::cout << std::setw(10) << result << "|";
+    }
+    std::cout << std::endl;
 }
+
 
 void PhoneBook::search_contact_details_by_index(void)
 {
