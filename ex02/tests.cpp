@@ -78,13 +78,14 @@ Account::displayAccountsInfos();
 //     it.first points to accounts[0] (Account 1).
 //     it.second points to deposits[0] (100).
 //     accounts[0].makeDeposit(100) is called.
-	for ( acc_int_t it( acc_begin, dep_begin );
+	for ( acc_int_t it( acc_begin, dep_begin );//init: it.first=acc_begin, it.second=dep_begin
 		  it.first != acc_end && it.second != dep_end;
 		  ++(it.first), ++(it.second) ) {
 		(*(it.first)).makeDeposit( *(it.second) );
 	}
 
 	Account::displayAccountsInfos();
+
 	std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
 
 	for ( acc_int_t it( acc_begin, wit_begin );

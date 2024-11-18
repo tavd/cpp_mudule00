@@ -75,8 +75,7 @@ void Account::displayAccountsInfos( void )
 {
 		_displayTimestamp();
 		std::cout << "accounts:" << _nbAccounts << ";" << "total:" <<_totalAmount << ";"//getNbAccounts()
-		<<"deposits:"<<_totalNbDeposits<<";"
-		<<"withdrawals:"<<_totalNbWithdrawals<<std::endl;
+		<<"deposits:" << _totalNbDeposits << ";" << "withdrawals:" << _totalNbWithdrawals << std::endl;
 }
 
 //19920104_091532] index:0;amount:42;deposits:0;withdrawals:0
