@@ -125,14 +125,13 @@ void PhoneBook::show_contacts(int index)
     std::cout << std::endl;
 }
 
-
 void PhoneBook::search_contact_details_by_index(void)
 {
 	std::string input;
 	int index = 0;
 	while (1)
 	{
-		std::cout << std::endl << "Enter index of a contact: ";
+		std::cout << std::endl << "Enter the index of a contact: ";
 		if (!std::getline(std::cin, input))
 			return ;
 		if (input.length() == 1 && input[0] >= '1' && input[0] <= '8')

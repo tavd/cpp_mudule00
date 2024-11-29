@@ -5,10 +5,12 @@ int main(void)
 	PhoneBook phoneBook;
 	std::string input;
 	while (input != "EXIT" && input != "exit")
-	{    //checks if the last operation on std::cin was successful (if getline didn't fail in other functions)
+	{  //checks if the last operation on std::cin was successful 
+	// (if getline didn't fail in other functions)
   		if (std::cin.good())
 		{
 			std::cout << "Enter command: ";
+			//If getline fails (EOF or error)
             if (!std::getline(std::cin, input))
 			{
               std::cout << std::endl;
