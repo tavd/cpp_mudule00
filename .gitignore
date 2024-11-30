@@ -1,0 +1,12 @@
+.vscode
+a.out
+*.o
+megaphone
+phoneBook
+account
+cin_example.cpp
+cin_example_solution.cpp
+vectors.cpp
+manip.cpp
+ex02/19920104_091532.log
+ex02/my.log

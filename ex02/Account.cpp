@@ -56,9 +56,6 @@ void Account::_displayTimestamp(void)
 // returns the current time which is typically the number of seconds that 
 // have elapsed since the Unix epoch (January 1, 1970, 00:00:00 UTC).
 	time_t current_time = std::time(NULL);
-	//struct tm is a structure that holds the components of calendar time, such as year, month, day, hour, minute, and second.
-	// std::localtime(&current_time) converts the time_t value into a tm structure, which represents the local time. 
-	// This allows you to break down the time_t value into human-readable components like year, month, day, etc.
 	struct tm timenow = *std::localtime(&current_time);
 	std::cout << "[" << timenow.tm_year + 1900
 	<< std::setfill('0') << std::setw(2) << timenow.tm_mon + 1
