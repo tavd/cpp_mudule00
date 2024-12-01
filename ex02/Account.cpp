@@ -67,7 +67,6 @@ void Account::_displayTimestamp(void)
 
 //[19920104_091532] accounts:8;total:20049;deposits:0;withdrawals:0
 //private static fields are accessible from public static functions within the same class
-//Static functions cannot access non-static fields because they don’t have a this pointer.
 void Account::displayAccountsInfos( void )
 {
 		_displayTimestamp();

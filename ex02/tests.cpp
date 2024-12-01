@@ -22,7 +22,7 @@ int		main( void ) {
 	typedef std::pair<accounts_t::iterator, ints_t::iterator> acc_int_t;
 
 	int	const				amounts[]	= { 42, 54, 957, 432, 1234, 0, 754, 16576 };
-	size_t const			amounts_size(sizeof(amounts) / sizeof(int));//8: 32/4	
+	size_t const			amounts_size(sizeof(amounts) / sizeof(int));//8 number of elements
 	//declares a std::vector<Account> variable named accounts using the range constructor.
 	accounts_t				accounts(amounts, amounts + amounts_size);
 	accounts_t::iterator	acc_begin	= accounts.begin();
@@ -42,13 +42,6 @@ int		main( void ) {
 	ints_t::iterator	wit_end		= withdrawals.end();
 
 Account::displayAccountsInfos();
-//-----------------------------------------------------------------
-	// std::mem_fun_ref:
-    // This is a standard library function adapter that creates a function object (functor) for member functions of objects. 
-	//(std::mem_fun_ref is an adapter that converts a member function into a callable functor.)
-	// It allows you to call member functions of objects by passing the object itself to the function.
-// In this case, std::mem_fun_ref is used to call the member function Account::displayStatus on each Account object in the accounts vector.
-//------------------------------------------------------------------
 //Iterates through all Account objects in the vector accounts, from acc_begin to acc_end.
 //For each Account object, it calls the displayStatus() member function.
 // &Account::displayStatus - a pointer to the displayStatus member function of the Account class.

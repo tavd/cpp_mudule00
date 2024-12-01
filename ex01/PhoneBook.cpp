@@ -52,7 +52,7 @@ void PhoneBook::show_saved_contact(void)
 {
 	std::cout<<std::endl << "Contact successfully saved!" << std::endl << std::endl << "Details:" << std::endl;
 	for (int i = 0; i < 5; i++)
-		std::cout << prompt[i].substr(6) << contacts[current_contact_index].get_data(i)<<std::endl;
+		std::cout << prompt[i].substr(6) << contacts[current_contact_index].get_data(i) << std::endl;
         std::cout << std::endl;
 }
 
